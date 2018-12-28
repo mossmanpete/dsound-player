@@ -1,0 +1,41 @@
+<div id="menu">
+   <ul>
+      <li id="logo"></li>
+      <!-- <li [routerLink]="[routes[0]]" [ngClass]="{ 'active': activeRoute === routes[0] }" (click)="goTo(routes[0])"><i class="icon ion-ios-search"></i></li> -->
+      <li [routerLink]="[routes[1]]" [ngClass]="{ 'active': activeRoute === routes[1] }" (click)="activeRoute = routes[1]"><i class="icon ion-ios-trending-up"></i></li>
+      <li [routerLink]="[routes[2]]" [ngClass]="{ 'active': activeRoute === routes[2] }" (click)="activeRoute = routes[2]"><i class="icon ion-ios-flame"></i></li>
+      <li [routerLink]="[routes[3]]" [ngClass]="{ 'active': activeRoute === routes[3] }" (click)="activeRoute = routes[3]"><i class="icon ion-ios-flash"></i></li>
+   </ul>
+</div>
+
+<router-outlet></router-outlet>
+
+<div id="player">
+   <div class="cover">
+      <!-- <div class="overlay"><i class="icon ion-md-heart-empty"></i></div> -->
+      <img [src]="audio.current.cover ? audio.current.cover : 'assets/img/dsound.png'" alt=""/>
+   </div>
+
+   <div class="infos">
+      <div class="title">{{audio.current.title}}</div>
+      <div class="author">{{audio.current.author}}</div>
+   </div>
+
+   <div class="controls">
+      <i id="control-prev" class="icon ion-md-skip-backward" (click)="audio.playNextTrack(false)"></i>
+      <i id="control-toogle" class="icon" [ngClass]="audio.player.paused ? 'ion-md-play' : 'ion-md-pause'" (click)="audio.player.paused ? audio.player.play() : audio.player.pause()"></i>
+      <i id="control-next" class="icon ion-md-skip-forward" (click)="audio.playNextTrack(true)"></i>
+   </div>
+
+   <div class="volume">
+      <i class="icon ion-md-volume-off" *ngIf="audio.player.volume == 0"></i>
+      <i class="icon ion-md-volume-mute" *ngIf="audio.player.volume > 0 && audio.player.volume <= 0.2"></i>
+      <i class="icon ion-md-volume-low" *ngIf="audio.player.volume > 0.2 && audio.player.volume < 0.7"></i>
+      <i class="icon ion-md-volume-high" *ngIf="audio.player.volume >= 0.7"></i>
+      <input type="range" min="0" max="100" value="50" (input)="audio.player.volume = $event.target.value / 100">
+   </div>
+
+   <div class="time-bar">
+      <input type="range" min="0" max="1000" [value]="time" (input)="audio.player.currentTime = ($event.target.value / 1000 * audio.player.duration) || 0">
+   </div>
+</div>

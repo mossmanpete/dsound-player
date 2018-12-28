@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="title">{{ title | translate }}</h1>
+  
+  <div class="scroll-list" (scroll)="onScroll($event)">
+    <div class="post" *ngFor="let post of posts">
+      <div class="cover">
+        <div class="overlay" [ngClass]="audio.current.permlink === post.permlink ? 'show' : ''" (click)="audio.current.permlink === post.permlink ? (!audio.player.paused ? audio.player.pause() : audio.player.play()) : audio.playTrack(post)">
+          <i class="icon" [ngClass]="audio.current.permlink === post.permlink && !audio.player.paused ? 'ion-md-pause' : 'ion-md-play'"></i>
+        </div>
+        <img [src]="post.cover ? post.cover : 'assets/img/dsound.png'" alt=""/>
+      </div>
+      <div class="title">{{post.title}}</div>
+      <div class="author">{{post.author}}</div>
+      <div class="infos">
+        <div class="payout"><i class="icon ion-md-cash"></i> {{post.payout}}</div>
+        <div class="actions">
+          <button class="replies mini" disabled><i class="icon ion-ios-chatbubbles"></i> {{post.replies}}</button>
+          <!-- <button class="reposts mini"><i class="icon ion-md-repeat"></i></button> -->
+          <button class="likes mini" disabled><i class="icon ion-md-heart"></i> {{post.likes}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

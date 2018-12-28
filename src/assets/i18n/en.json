@@ -1,0 +1,14 @@
+{
+  "PAGES": {
+      "SEARCH": {
+        "title": "Search"
+      },
+      "HOME": {
+        "title" : {
+          "trending": "Trending",
+          "hot": "Hot",
+          "new": "New"
+        }
+      }
+  }
+}

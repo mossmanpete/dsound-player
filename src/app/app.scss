@@ -1,0 +1,287 @@
+@import './app.variables';
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('../assets/fonts/Montserrat-Black.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-ExtraBold';
+  src: url('../assets/fonts/Montserrat-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('../assets/fonts/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('../assets/fonts/Montserrat-Regular.ttf');
+}
+
+::-webkit-scrollbar {
+  width: $scrollbar-size;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+
+   &:hover {
+      background-color: $secondary-color;
+   }
+}
+
+* {
+   box-sizing: border-box;
+   outline: 0;
+}
+
+h1 {
+   font-family: 'Montserrat-ExtraBold';
+   font-size: 3em;
+   margin: 0;
+}
+
+ul {
+   margin: 0;
+   padding: 0;
+   list-style-type: none;
+}
+
+button {
+   &.mini {
+      background-color: transparent;
+      border: 1px solid rgba($secondary-color, 0.5);
+      border-radius: 5px;
+      margin-right: 0.3rem;
+      padding: 0.1rem 0.4rem 0.1rem 0.4rem;
+      font-family: 'Montserrat-Extrabold';
+      font-size: 0.8rem;
+      color: $secondary-color;
+      transition: all 0.1s ease-in-out;
+      cursor: pointer;
+
+      &:not([disabled]):hover {
+         background-color: $secondary-color;
+         color: $primary-color;
+      }
+
+      &[disabled] {
+         border: none;
+         padding: 0.1rem 0.2rem 0.1rem 0.2rem;
+      }
+   }
+}
+
+input[type=range] {
+   -webkit-appearance: none;
+   background: transparent;
+   outline: none;
+   overflow: hidden;
+   margin: 0;
+
+   &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 0;
+      box-shadow: -100rem 0 0 100rem $secondary-color;
+   }
+
+   &::-webkit-slider-runnable-track {
+     width: 100%;
+     height: 0.3rem;
+     background-color: rgba($secondary-color, 0.35);
+     transition: height 0.1s ease-in-out;
+   }
+
+   &:hover::-webkit-slider-runnable-track {
+      height: 0.5rem;
+   }
+
+   &:focus {
+      cursor: grabbing;
+   }
+}
+
+.container {
+   height: calc(100% - #{$bar-size});
+   width: calc(100% - #{$bar-size});
+   margin-left: $bar-size;
+   overflow: hidden;
+   user-select: none;
+
+   h1.title {
+      height: $title-height;
+      line-height: $title-height;
+      padding-left: 4vh;
+      color: $secondary-color;
+   }
+
+   .scroll-list {
+      display: grid;
+      grid-gap: $post-margin;
+      grid-template-columns: repeat(auto-fit, minmax($post-size, 1fr));
+      height: calc(100% - #{$title-height});
+      overflow: hidden;
+      overflow-y: auto;
+      padding-left: 3vw;
+      padding-right: 3vw;
+      transform: translateZ(0);
+   }
+}
+
+#menu {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: $bar-size;
+   background-color: $secondary-color;
+   box-shadow: 0.1rem 0 1rem rgba(0, 0, 0, 0.1);
+
+   #logo {
+      background-image: url('../assets/img/dsound_white.png');
+      background-size: 85% 85%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin-bottom: 2vh;
+   }
+
+   li {
+      width: $bar-size;
+      height: $bar-size;
+      line-height: $bar-size;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.15s ease-in-out;
+
+      &.active {
+         background-color: #DB8600;
+         // background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .icon {
+         font-size: 2.3em;
+         color: $primary-color;
+      }
+
+      &:not(.active):hover {
+         background-color: rgba(0, 0, 0, 0.05);
+      }
+   }
+}
+
+#player {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   height: $bar-size;
+   width: 100%;
+   background-color: $primary-color;
+   box-shadow: 0 -0.1rem 1rem rgba(0, 0, 0, 0.1);
+   user-select: none;
+
+   .cover {
+      position: relative;
+      height: $bar-size;
+      width: $bar-size;
+      background-color: rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+
+      .overlay {
+         position: absolute;
+         height: 100%;
+         width: 100%;
+         font-size: 2rem;
+         line-height: $bar-size;
+         text-align: center;
+         opacity: 0.5;
+         transition: opacity 0.1s ease-in-out;
+
+         &:hover {
+            opacity: 1;
+         }
+      }
+
+      img {
+         height: 100%;
+         width: auto;
+      }
+   }
+
+   .infos {
+      position: absolute;
+      top: 1rem;
+      left: calc(4.2rem + 0.8rem);
+      width: 22vw;
+
+      .title, .author {
+        height: 1.2em;
+        overflow: hidden;
+        font-family: 'Montserrat-Bold';
+        white-space: nowrap;
+        word-break: break-all;
+        text-overflow: ellipsis;
+      }
+
+      .author {
+        font-size: 0.8rem;
+      }
+   }
+
+   .controls {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: -5rem;
+      width: 10rem;
+      text-align: center;
+      line-height: 4.2rem;
+
+      .icon {
+         display: inline-block;
+         vertical-align: middle;
+         margin-left: 0.7rem;
+         margin-right: 0.7rem;
+         font-size: 1.5rem;
+         color: $secondary-color;
+         cursor: pointer;
+      }
+
+      #control-toogle {
+         font-size: 2.2rem;
+      }
+   }
+
+   .volume {
+      position: absolute;
+      top: 0;
+      right: 2rem;
+      line-height: $bar-size;
+
+      .icon, input {
+         display: inline-block;
+         vertical-align: middle;
+      }
+
+      .icon {
+         font-size: 1.5rem;
+         color: $secondary-color;
+         margin-right: 0.4rem;
+         vertical-align: -0.3rem;
+      }
+   }
+
+   .time-bar {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: calc(100% - #{$bar-size});
+
+      input {
+         position: absolute;
+         bottom: 0;
+         width: 100%;
+      }
+   }
+}
