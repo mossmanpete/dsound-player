@@ -1,14 +1,22 @@
 {
   "PAGES": {
-      "SEARCH": {
-        "title": "Search"
-      },
-      "HOME": {
-        "title" : {
-          "trending": "Trending",
-          "hot": "Hot",
-          "new": "New"
-        }
+    "SEARCH": {
+      "title": "Search"
+    },
+    "HOME": {
+      "title" : {
+        "trending": "Trending",
+        "hot": "Hot",
+        "new": "New"
       }
+    },
+    "SETTINGS": {
+      "title": "About"
+    }
+  },
+  "ERRORS": {
+    "HOME": {
+      "posts": "Error: Cannot load more posts"
+    }
   }
 }

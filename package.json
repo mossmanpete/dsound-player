@@ -1,6 +1,6 @@
 {
   "name": "dsound-player",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "DSound Player App",
   "homepage": "https://github.com/tymmesyde/dsound-player",
   "repository": {
@@ -19,7 +19,7 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "postinstall": "npm run postinstall:electron && electron-builder install-app-deps",
+    "postinstall": "npm run postinstall:electron",
     "postinstall:web": "node postinstall-web",
     "postinstall:electron": "node postinstall",
     "ng": "ng",
@@ -39,6 +39,9 @@
     "make": "npm run build:prod && electron-forge make"
   },
   "dependencies": {
+    "@angular/animations": "^7.1.4",
+    "@angular/cdk": "^7.2.0",
+    "@angular/material": "^7.2.0",
     "@types/jsdom": "^12.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "ionicons": "^4.5.1",
@@ -113,7 +116,7 @@
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "DSound",
-            "iconUrl": "https://github.com/tymmesyde/dsound-player/master/src/assets/img/icon.ico",
+            "iconUrl": "https://raw.githubusercontent.com/tymmesyde/dsound-player/master/src/assets/img/icon.ico",
             "setupIcon": "./src/assets/img/icon.ico",
             "loadingGif": "./src/assets/img/setup.gif"
           }

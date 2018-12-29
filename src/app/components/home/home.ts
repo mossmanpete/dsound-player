@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SteemService } from '../../providers/steem/steem.service';
 import { AudioService } from '../../providers/audio/audio.service';
+import { UIService } from '../../providers/ui/ui.service';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,9 @@ export class HomeComponent implements OnInit {
   activeRoute: String = '';
   posts: any[] = [];
   postsCount: Number = 35;
+  loading: Boolean = false;
 
-  constructor(private router: Router, private steem: SteemService, private audio: AudioService) {
+  constructor(private router: Router, private steem: SteemService, private audio: AudioService, private ui: UIService) {
     this.apiRoutes = {
       feed: null,
       trending: this.steem.getTrendingPosts,
@@ -32,6 +34,8 @@ export class HomeComponent implements OnInit {
   }
 
   async loadPosts() {
+    this.loading = true;
+
     let options = {};
     if (this.posts.length > 0) {
       const { author, permlink } = this.posts[this.posts.length - 1];
@@ -53,6 +57,11 @@ export class HomeComponent implements OnInit {
         break;
     }
 
+    if (!newPosts.length) {
+      this.ui.openSnackBar('ERRORS.HOME.posts', true);
+    }
+
+    this.loading = false;
     this.posts = this.posts.concat(newPosts);
     this.audio.playlist = this.posts;
     console.log(this.posts);
@@ -64,5 +73,4 @@ export class HomeComponent implements OnInit {
       this.loadPosts();
     }
   }
-
 }

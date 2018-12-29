@@ -39,6 +39,17 @@ let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
+// Freeze console for production mode
+if (!serve) {
+  const disFunc = () => 'console has been disabled in production mode';
+
+  console.log = disFunc;
+  console.error = disFunc;
+  console.warn = disFunc;
+
+  Object.freeze(console);
+}
+
 // Close app if another instance is already running
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {

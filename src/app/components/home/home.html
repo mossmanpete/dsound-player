@@ -7,7 +7,7 @@
         <div class="overlay" [ngClass]="audio.current.permlink === post.permlink ? 'show' : ''" (click)="audio.current.permlink === post.permlink ? (!audio.player.paused ? audio.player.pause() : audio.player.play()) : audio.playTrack(post)">
           <i class="icon" [ngClass]="audio.current.permlink === post.permlink && !audio.player.paused ? 'ion-md-pause' : 'ion-md-play'"></i>
         </div>
-        <img [src]="post.cover ? post.cover : 'assets/img/dsound.png'" alt=""/>
+        <img [src]="post.cover ? post.cover : ''" alt=""/>
       </div>
       <div class="title">{{post.title}}</div>
       <div class="author">{{post.author}}</div>
@@ -20,5 +20,7 @@
         </div>
       </div>
     </div>
+
+    <div class="loading" *ngIf="!posts.length || loading"></div>
   </div>
 </div>

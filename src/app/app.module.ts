@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -14,11 +16,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ElectronService } from './providers/electron/electron.service';
 import { SteemService } from './providers/steem/steem.service';
 import { AudioService } from './providers/audio/audio.service';
+import { UIService } from './providers/ui/ui.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app';
 import { HomeComponent } from './components/home/home';
+import { SettingsComponent } from './components/settings/settings';
 
 const routes: Routes = [
   { path: 'home',
@@ -29,6 +33,7 @@ const routes: Routes = [
       { path: 'new', component: HomeComponent }
     ]
   },
+  { path: 'settings', component: SettingsComponent },
   { path: '', redirectTo: '/home/trending', pathMatch: 'full' }
 ];
 
@@ -41,12 +46,15 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HomeComponent,
-    WebviewDirective
+    WebviewDirective,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
     RouterModule.forRoot(routes, { useHash: true }),
     TranslateModule.forRoot({
       loader: {
@@ -60,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     ElectronService,
     SteemService,
-    AudioService
+    AudioService,
+    UIService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,6 +5,8 @@
       <li [routerLink]="[routes[1]]" [ngClass]="{ 'active': activeRoute === routes[1] }" (click)="activeRoute = routes[1]"><i class="icon ion-ios-trending-up"></i></li>
       <li [routerLink]="[routes[2]]" [ngClass]="{ 'active': activeRoute === routes[2] }" (click)="activeRoute = routes[2]"><i class="icon ion-ios-flame"></i></li>
       <li [routerLink]="[routes[3]]" [ngClass]="{ 'active': activeRoute === routes[3] }" (click)="activeRoute = routes[3]"><i class="icon ion-ios-flash"></i></li>
+
+      <li [routerLink]="['/settings']" class="bottom" [ngClass]="{ 'active': activeRoute === '/settings' }" (click)="activeRoute = '/settings'"><i class="icon ion-md-settings"></i></li>
    </ul>
 </div>
 
@@ -13,7 +15,7 @@
 <div id="player">
    <div class="cover">
       <!-- <div class="overlay"><i class="icon ion-md-heart-empty"></i></div> -->
-      <img [src]="audio.current.cover ? audio.current.cover : 'assets/img/dsound.png'" alt=""/>
+      <img [src]="audio.current.cover ? audio.current.cover : ''" alt=""/>
    </div>
 
    <div class="infos">

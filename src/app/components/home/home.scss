@@ -18,6 +18,11 @@
         position: relative;
         height: $post-size;
         overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.1);
+        background-image: url('../../../assets/img/disc.svg');
+        background-repeat: no-repeat;
+        background-size: 80% 80%;
+        background-position: center center;
         box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
         border-radius: 2px;
         margin-bottom: 0.6em;
