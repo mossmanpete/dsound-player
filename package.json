@@ -1,6 +1,6 @@
 {
   "name": "dsound-player",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "DSound Player App",
   "homepage": "https://github.com/tymmesyde/dsound-player",
   "repository": {
@@ -45,7 +45,6 @@
     "@types/jsdom": "^12.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "ionicons": "^4.5.1",
-    "jsdom": "^13.1.0",
     "steem": "^0.7.3"
   },
   "devDependencies": {

@@ -6,7 +6,6 @@ import { ipcRenderer, webFrame, remote } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import * as steem from 'steem';
-import * as jsdom from 'jsdom';
 
 @Injectable()
 export class ElectronService {
@@ -17,7 +16,6 @@ export class ElectronService {
   childProcess: typeof childProcess;
   fs: typeof fs;
   steem: typeof steem;
-  jsdom: typeof jsdom.JSDOM;
 
   constructor() {
     // Conditional imports
@@ -29,7 +27,6 @@ export class ElectronService {
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
       this.steem = window.require('steem');
-      this.jsdom = window.require('jsdom').JSDOM;
     }
   }
 

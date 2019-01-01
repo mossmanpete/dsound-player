@@ -5,37 +5,57 @@ import { Injectable } from '@angular/core';
 })
 export class SteemService {
    private client;
-   private jsdom;
 
    constructor() {
    }
 
-   initialize(client, api, jsdom) {
+   initialize(client, api) {
       this.client = client;
       this.client.api.setOptions({ url: api });
-      this.jsdom = jsdom;
+   }
+
+   getAccount(usernames: any[]) {
+      return new Promise(resolve => {
+         this.client.api.getAccounts(usernames, (err, result) => {
+            if (err) { resolve(null); }
+            resolve(result);
+         });
+      });
+   }
+
+   getUserPosts(username: String, { limit, permlink = null }) {
+      return new Promise(resolve => {
+         this.client.api.getDiscussionsByAuthorBeforeDate(username, permlink, '2100-01-01T00:00:00', limit, (err, result) => {
+            if (err) { resolve(null); }
+            resolve(
+               (permlink ? result.slice(1) : result)
+               .filter(p => p.category === 'dsound' && (p.beneficiaries.length ? p.beneficiaries[0].account === 'dsound' : false))
+               .map(p => this.parsePost(p))
+            );
+         });
+      });
    }
 
    getFeedPosts(limit, { author = null, permlink = null }) {
-      return this.getPosts(this.client.api.getDiscussionsByFeed, { limit, author, permlink });
+      return this.getPosts(this.client.api.getDiscussionsByFeed, { tag: 'dsound', limit, author, permlink });
    }
 
    getTrendingPosts(limit, { author = null, permlink = null }) {
-      return this.getPosts(this.client.api.getDiscussionsByTrending, { limit, author, permlink });
+      return this.getPosts(this.client.api.getDiscussionsByTrending, { tag: 'dsound', limit, author, permlink });
    }
 
    getHotPosts(limit, { author = null, permlink = null }) {
-      return this.getPosts(this.client.api.getDiscussionsByHot, { limit, author, permlink });
+      return this.getPosts(this.client.api.getDiscussionsByHot, { tag: 'dsound', limit, author, permlink });
    }
 
    getNewPosts(limit, { author = null, permlink = null }) {
-      return this.getPosts(this.client.api.getDiscussionsByCreated, { limit, author, permlink });
+      return this.getPosts(this.client.api.getDiscussionsByCreated, { tag: 'dsound', limit, author, permlink });
    }
 
    getPosts(endpoint, options) {
       return new Promise<any[]>(resolve => {
          endpoint({
-            tag: 'dsound',
+            tag: options.tag,
             limit: (options.author && options.permlink ? options.limit + 1 : options.limit),
             start_author: options.author,
             start_permlink: options.permlink
@@ -51,21 +71,20 @@ export class SteemService {
    }
 
    parsePost(post: any) {
-      console.log(post);
-      const doc = new this.jsdom(post.body).window.document;
-      const img = doc.querySelector('img');
-      let audio = '';
-      doc.querySelectorAll('a').forEach(el => {
-         const href = el.getAttribute('href');
-         if (new RegExp(/node([0-9])\w.dsound.audio/g).test(href)) { audio = href; }
-      });
+      const meta = JSON.parse(post.json_metadata);
+      const files = meta.audio.files;
+      const node = files.node || {};
+      const domain = `${node.protocol}://${node.host}/ipfs`;
+      const cover = `${domain}/${files.cover}`;
+      const sound = `${domain}/${files.sound}`;
 
       return {
          author: post.author,
          permlink: post.permlink,
          title: post.title,
-         cover: img ? img.getAttribute('src') : '',
-         audio: audio,
+         desc: meta.audio.desc,
+         cover: cover ? cover : '',
+         audio: sound ? sound : '',
          payout: parseFloat(post.pending_payout_value.replace('SBD', '')).toFixed(2),
          replies: post.children,
          likes: post.active_votes.length

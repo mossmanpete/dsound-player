@@ -6,5 +6,6 @@
 export const AppConfig = {
   production: false,
   environment: 'DEV',
-  steemApi: 'https://api.steemit.com'
+  steemApi: 'https://api.steemit.com',
+  dsoundUrl: 'https://dsound.audio/#!'
 };

@@ -20,12 +20,12 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private steem: SteemService, private audio: AudioService, private ui: UIService) {
     this.apiRoutes = {
       feed: null,
-      trending: this.steem.getTrendingPosts,
-      hot: this.steem.getHotPosts,
-      new: this.steem.getNewPosts
+      trending: steem.getTrendingPosts,
+      hot: steem.getHotPosts,
+      new: steem.getNewPosts
     };
 
-    this.activeRoute = this.router.routerState.snapshot.url.replace('/home', '').substr(1);
+    this.activeRoute = router.routerState.snapshot.url.replace('/home', '').substr(1);
     this.title = `PAGES.HOME.title.${this.activeRoute}`;
   }
 
@@ -61,9 +61,9 @@ export class HomeComponent implements OnInit {
       this.ui.openSnackBar('ERRORS.HOME.posts', true);
     }
 
-    this.loading = false;
     this.posts = this.posts.concat(newPosts);
     this.audio.playlist = this.posts;
+    this.loading = false;
     console.log(this.posts);
   }
 

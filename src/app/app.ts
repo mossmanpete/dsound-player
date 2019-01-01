@@ -38,7 +38,7 @@ export class AppComponent {
     }
 
     // Initialize SteemService
-    steem.initialize(this.electronService.steem, AppConfig.steemApi, this.electronService.jsdom);
+    steem.initialize(this.electronService.steem, AppConfig.steemApi);
 
     // Initialize Routes
     this.routes = router.config[0].children.map(c => '/home/' + c.path);

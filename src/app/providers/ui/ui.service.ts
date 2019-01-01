@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { shell } from 'electron';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,11 @@ export class UIService {
         panelClass: ['snackbar', (error ? 'danger' : 'success')]
       });
     });
+  }
+
+  openBrowser(url: string) {
+    if (url) {
+      shell.openExternal(url);
+    }
   }
 }

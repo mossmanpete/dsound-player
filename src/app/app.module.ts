@@ -23,6 +23,7 @@ import { WebviewDirective } from './directives/webview.directive';
 import { AppComponent } from './app';
 import { HomeComponent } from './components/home/home';
 import { SettingsComponent } from './components/settings/settings';
+import { UserComponent } from './components/user/user';
 
 const routes: Routes = [
   { path: 'home',
@@ -34,6 +35,7 @@ const routes: Routes = [
     ]
   },
   { path: 'settings', component: SettingsComponent },
+  { path: 'user/:username', component: UserComponent },
   { path: '', redirectTo: '/home/trending', pathMatch: 'full' }
 ];
 
@@ -47,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     WebviewDirective,
-    SettingsComponent
+    SettingsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,29 @@
 <div class="container">
-  <h1 class="title">{{ title | translate }}</h1>
-  
+  <div class="profile" [ngStyle]="{'background-image': 'url('+user.profile?.cover_image+')'}">
+    <div class="overlay"></div>
+
+    <div class="content">
+      <div class="avatar">
+        <img [src]="user.profile?.profile_image" alt=""/>
+      </div>
+      <div class="infos">
+        <div class="title">
+          <span class="name">{{user.profile?.name}}</span>
+          <span class="username" (click)="ui.openBrowser(user.link)">{{user.name}} <i class="icon ion-md-open"></i></span>
+        </div>
+        <div class="location" *ngIf="user.profile?.location"><i class="icon ion-md-pin"></i> {{user.profile?.location}}</div>
+        <div class="about">{{user.profile?.about}}</div>
+      </div>
+    </div>
+  </div>
+
   <div class="scroll-list" (scroll)="onScroll($event)">
     <div class="post" *ngFor="let post of posts">
       <div class="cover">
         <div class="overlay" [ngClass]="audio.current.permlink === post.permlink ? 'show' : ''" (click)="audio.current.permlink === post.permlink ? (!audio.player.paused ? audio.player.pause() : audio.player.play()) : audio.playTrack(post)">
           <i class="icon" [ngClass]="audio.current.permlink === post.permlink && !audio.player.paused ? 'ion-md-pause' : 'ion-md-play'"></i>
         </div>
-        <img [src]="post.cover ? post.cover : ''" alt=""/>
+        <img [src]="post.cover ? post.cover : ''" alt="" />
       </div>
       <div class="title">{{post.title}}</div>
       <div class="author" [routerLink]="['/user/'+post.author]">{{post.author}}</div>

@@ -20,7 +20,7 @@
 
    <div class="infos">
       <div class="title">{{audio.current.title}}</div>
-      <div class="author">{{audio.current.author}}</div>
+      <div class="author" [routerLink]="['/user/'+audio.current.author]">{{audio.current.author}}</div>
    </div>
 
    <div class="controls">

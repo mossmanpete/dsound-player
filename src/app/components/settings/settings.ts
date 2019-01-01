@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { shell } from 'electron';
+import { UIService } from '../../providers/ui/ui.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,13 +8,9 @@ import { shell } from 'electron';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public ui: UIService) { }
 
   ngOnInit() {
-  }
-
-  openBrowser(url: string) {
-    shell.openExternal(url);
   }
 
 }
