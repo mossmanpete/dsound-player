@@ -1,6 +1,6 @@
 {
   "name": "dsound-player",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "DSound Player App",
   "homepage": "https://github.com/tymmesyde/dsound-player",
   "repository": {
@@ -128,7 +128,19 @@
         },
         {
           "name": "@electron-forge/maker-deb",
-          "config": {}
+          "config": {
+            "options": {
+              "maintainer": "Tim Dusser-Jolly",
+              "bin": "DSound",
+              "size": 280,
+              "productName": "DSound Player",
+              "genericName": "Audio Player",
+              "icon": "src/assets/img/icon.ico",
+              "categories": [
+                "Audio"
+              ]
+            }
+          }
         },
         {
           "name": "@electron-forge/maker-rpm",
