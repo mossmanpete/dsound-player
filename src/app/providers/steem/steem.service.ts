@@ -73,7 +73,7 @@ export class SteemService {
    parsePost(post: any) {
       const meta = JSON.parse(post.json_metadata);
       const files = meta.audio.files;
-      const node = files.node || {};
+      const node = files.node || { protocol: 'https', host: 'node01.dsound.audio'};
       const domain = `${node.protocol}://${node.host}/ipfs`;
       const cover = `${domain}/${files.cover}`;
       const sound = `${domain}/${files.sound}`;

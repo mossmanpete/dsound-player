@@ -44,8 +44,9 @@ export class UserComponent implements OnInit {
 
     const newPosts = await this.steem.getUserPosts(this.username, options);
     this.posts = this.posts.concat(newPosts);
-    console.log(this.posts);
+    this.audio.playlist = this.posts;
     this.loading = false;
+    console.log(this.posts);
   }
 
   onScroll(event: any) {
