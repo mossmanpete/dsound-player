@@ -27,9 +27,11 @@ export class HomeComponent implements OnInit {
 
     this.activeRoute = router.routerState.snapshot.url.replace('/home', '').substr(1);
     this.title = `PAGES.HOME.title.${this.activeRoute}`;
+    console.log(this.activeRoute);
   }
 
   ngOnInit() {
+    console.log('loadPosts');
     this.loadPosts();
   }
 

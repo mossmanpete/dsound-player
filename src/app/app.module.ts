@@ -24,6 +24,8 @@ import { AppComponent } from './app';
 import { HomeComponent } from './components/home/home';
 import { SettingsComponent } from './components/settings/settings';
 import { UserComponent } from './components/user/user';
+import { TrackComponent } from './components/track/track';
+import { PostComponent } from './components/post/post.component';
 
 const routes: Routes = [
   { path: 'home',
@@ -36,6 +38,7 @@ const routes: Routes = [
   },
   { path: 'settings', component: SettingsComponent },
   { path: 'user/:username', component: UserComponent },
+  { path: 'track/:author/:permlink', component: TrackComponent },
   { path: '', redirectTo: '/home/trending', pathMatch: 'full' }
 ];
 
@@ -50,7 +53,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     WebviewDirective,
     SettingsComponent,
-    UserComponent
+    UserComponent,
+    TrackComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

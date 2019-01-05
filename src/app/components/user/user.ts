@@ -11,7 +11,7 @@ import { AppConfig } from '../../../environments/environment';
   styleUrls: ['./user.scss']
 })
 export class UserComponent implements OnInit {
-  username: String = '';
+  username: string;
   user: any = {};
   posts: any[] = [];
   loading: Boolean = false;
@@ -21,9 +21,13 @@ export class UserComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const accounts = await this.steem.getAccount([this.username]);
-    this.user = Object.assign(accounts[0], JSON.parse(accounts[0].json_metadata));
+    const user = await this.steem.getUser(this.username);
+    this.user = Object.assign(user, JSON.parse(user.json_metadata));
     this.user.link = `${AppConfig.dsoundUrl}/@${this.user['name']}`;
+
+    const follow = await this.steem.getFollowCount(this.username);
+    this.user.followers = follow.follower_count;
+    this.user.following = follow.following_count;
 
     console.log(this.user);
     this.loadPosts();

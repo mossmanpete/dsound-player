@@ -14,9 +14,27 @@ export class SteemService {
       this.client.api.setOptions({ url: api });
    }
 
-   getAccount(usernames: any[]) {
+   getTrack(author: String, permlink: String) {
       return new Promise(resolve => {
-         this.client.api.getAccounts(usernames, (err, result) => {
+         this.client.api.getContent(author, permlink, (err, result) => {
+            if (err) { resolve(null); }
+            resolve(this.parsePost(result));
+         });
+      });
+   }
+
+   getUser(username: string) {
+      return new Promise<any>(resolve => {
+         this.client.api.getAccounts([username], (err, result) => {
+            if (err) { resolve(null); }
+            resolve(result[0]);
+         });
+      });
+   }
+
+   getFollowCount(username: string) {
+      return new Promise<any>(resolve => {
+         this.client.api.getFollowCount(username, (err, result) => {
             if (err) { resolve(null); }
             resolve(result);
          });
@@ -77,17 +95,20 @@ export class SteemService {
       const domain = `${node.protocol}://${node.host}/ipfs`;
       const cover = `${domain}/${files.cover}`;
       const sound = `${domain}/${files.sound}`;
-
+      console.log(post);
+      
       return {
          author: post.author,
          permlink: post.permlink,
          title: post.title,
-         desc: meta.audio.desc,
+         description: meta.audio.desc,
+         type: meta.audio.type,
          cover: cover ? cover : '',
          audio: sound ? sound : '',
          payout: parseFloat(post.pending_payout_value.replace('SBD', '')).toFixed(2),
          replies: post.children,
-         likes: post.active_votes.length
+         likes: post.active_votes.length,
+         created: post.created
       };
    }
 }

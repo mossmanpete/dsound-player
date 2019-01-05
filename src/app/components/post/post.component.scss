@@ -1,0 +1,93 @@
+@import '../../app.variables';
+
+.post {
+  vertical-align: top;
+  width: $post-size;
+
+  .cover {
+    position: relative;
+    height: $post-size;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.1);
+    background-image: url('../../../assets/img/disc.svg');
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+    background-position: center center;
+    box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-bottom: 0.6em;
+    text-align: center;
+
+    .tag {
+      z-index: 1;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      opacity: 0;
+    }
+
+    .overlay {
+      z-index: 0;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      line-height: $post-size;
+      font-size: 7vh;
+      color: $secondary-color;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      opacity: 0;
+
+      &.show {
+        opacity: 1;
+      }
+    }
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+
+    &:hover {
+      .tag {
+        opacity: 1;
+      }
+
+      .overlay {
+        opacity: 1;
+      }
+    }
+  }
+
+  .title,
+  .author {
+    height: 1.2em;
+    overflow: hidden;
+    font-family: 'Montserrat-Bold';
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  .author {
+    font-size: 0.8rem;
+  }
+
+  .infos {
+    margin-top: 0.5rem;
+
+    .payout {
+      float: left;
+      font-family: 'Montserrat-ExtraBold';
+      font-size: 0.8rem;
+      line-height: 150%;
+    }
+
+    .actions {
+      float: right;
+      margin-right: -0.3rem;
+    }
+  }
+}

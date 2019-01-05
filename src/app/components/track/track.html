@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="track">
+    <div class="background-overlay" [ngStyle]="{'background-image': 'url('+track?.cover+')'}"></div>
+
+    <div class="content">
+      <div class="cover">
+        <div class="overlay" [ngClass]="audio.current.permlink === track.permlink ? 'show' : ''" (click)="audio.current.permlink === track.permlink ? (!audio.player.paused ? audio.player.pause() : audio.player.play()) : audio.playTrack(track)">
+          <i class="icon" [ngClass]="audio.current.permlink === track.permlink && !audio.player.paused ? 'ion-md-pause' : 'ion-md-play'"></i>
+        </div>
+        <img [src]="track?.cover" alt="" />
+      </div>
+      <div class="infos">
+        <div class="title">
+          <span class="name">{{track?.title}}</span>
+          <span class="username" (click)="ui.openBrowser(track?.link)">{{track?.permlink}} <i class="icon ion-md-open"></i></span>
+        </div>
+        <div class="author" [routerLink]="['/user/'+track.author]" *ngIf="track?.author">@{{track?.author}}</div>
+        <div class="tag">{{track?.type}}</div>
+
+        <div class="counts">
+          <div class="likes"><i class="icon ion-md-heart"></i> {{track?.likes}}</div>
+          <div class="replies"><i class="icon ion-ios-chatbubbles"></i> {{track?.replies}}</div>
+          <div class="payout"><i class="icon ion-md-cash"></i> {{track?.payout}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-list">
+    <div class="description" [innerHTML]="track?.description"></div>
+  </div>
+</div>

@@ -1,23 +1,25 @@
 @import '../../app.variables';
 
-.profile {
+.track {
    position: relative;
    width: 100%;
    height: $profile-height;
-   background-size: cover;
-   background-position: center center;
    box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
+   overflow: hidden;
 
-   .overlay {
+  .background-overlay {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.2);
+      top: -5rem;
+      bottom: -5rem;
+      left: -5rem;
+      right: -5rem;
+      background-size: 95% auto;
+      background-position: center center;
+      background-repeat: no-repeat;
+      filter: blur(2rem);
    }
 
-   .content {
+  .content {
       display: grid;
       grid-template-columns: 24vh auto;
       position: absolute;
@@ -28,12 +30,13 @@
       padding-left: 3%;
       padding-right: 3%;
 
-      .avatar, .infos {
+      .cover, .infos {
          display: inline-block;
          vertical-align: top;
       }
 
-      .avatar {
+      .cover {
+         position: relative;
          height: 20vh;
          width: 20vh;
          overflow: hidden;
@@ -50,6 +53,30 @@
             height: 100%;
             width: auto;
          }
+
+         &:hover {
+           .overlay {
+             opacity: 1;
+           }
+         }
+
+         .overlay {
+           z-index: 0;
+           position: absolute;
+           height: 100%;
+           width: 100%;
+           background-color: rgba(0, 0, 0, 0.3);
+           line-height: 20vh;
+           font-size: 7vh;
+           color: $secondary-color;
+           cursor: pointer;
+           transition: all 0.15s ease-in-out;
+           opacity: 0;
+
+           &.show {
+             opacity: 1;
+           }
+         }
       }
 
       .infos {
@@ -58,49 +85,54 @@
          font-size: 2.2vh;
          color: white;
          text-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.4);
+         overflow: hidden;
 
          .title {
             font-family: 'Montserrat-ExtraBold';
             font-size: 5vh;
-            display: inline;
-            
+            white-space: nowrap;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
             .name, .username {
                transition: opacity 0.1s ease-in-out;
             }
 
             .username {
-              position: absolute;
-              left: 0;
-              opacity: 0;
-              cursor: pointer;
+               display: none;
+               cursor: pointer;
             }
 
             &:hover {
                .name {
-                  opacity: 0;
+                  display: none;
                }
 
                .username {
-                  opacity: 1;
+                  display: block;
                }
             }
          }
 
-         .about {
-            font-family: 'Montserrat-Regular';
-            margin-top: 0.25rem;
+         .author {
+            cursor: pointer;
          }
 
-         .counts {
-            position: absolute;
-            right: 0;
-            bottom: 0;
+         .tag {
+            margin-top: 0.5rem;
+         }
+      }
 
-            div {
-               display: inline-block;
-               vertical-align: top;
-               margin-left: 1rem;
-            }
+      .counts {
+         position: absolute;
+         right: 0;
+         bottom: 0;
+
+         div {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 1rem;
          }
       }
    }
@@ -109,4 +141,9 @@
 .scroll-list {
    height: calc(100% - #{$profile-height});
    padding-top: 2.5vw;
+
+   .description {
+      overflow-x: hidden;
+      font-family: 'Montserrat-Regular';
+   }
 }
