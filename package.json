@@ -1,6 +1,6 @@
 {
   "name": "dsound-player",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "DSound Player App",
   "homepage": "https://github.com/tymmesyde/dsound-player",
   "repository": {
@@ -131,10 +131,10 @@
             "options": {
               "maintainer": "Tim Dusser-Jolly",
               "bin": "DSound",
-              "size": 175,
+              "size": 180,
               "productName": "DSound Player",
               "genericName": "Audio Player",
-              "icon": "src/assets/img/icon.ico",
+              "icon": "./src/assets/img/icon.png",
               "categories": [
                 "Audio"
               ]

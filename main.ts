@@ -74,7 +74,8 @@ function createWindow() {
     height: 740,
     minWidth: 800,
     minHeight: 660,
-    icon: path.join(__dirname, 'src/assets/img/icon.ico')
+    icon: path.join(__dirname, 'src/assets/img/icon.ico'),
+    autoHideMenuBar: true
   });
 
   win.setMenu(null);
@@ -98,7 +99,7 @@ function createWindow() {
   }
 
   if (serve) {
-    win.webContents.openDevTools();
+    win.webContents.openDevTools({ detach: true });
   }
 
   win.on('closed', () => {

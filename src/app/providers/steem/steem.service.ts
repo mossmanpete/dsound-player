@@ -95,8 +95,9 @@ export class SteemService {
       const domain = `${node.protocol}://${node.host}/ipfs`;
       const cover = `${domain}/${files.cover}`;
       const sound = `${domain}/${files.sound}`;
-      console.log(post);
-      
+      const pending_payout = parseFloat(post.pending_payout_value.replace('SBD', ''));
+      const total_payout = parseFloat(post.total_payout_value.replace('SBD', ''));
+
       return {
          author: post.author,
          permlink: post.permlink,
@@ -105,7 +106,7 @@ export class SteemService {
          type: meta.audio.type,
          cover: cover ? cover : '',
          audio: sound ? sound : '',
-         payout: parseFloat(post.pending_payout_value.replace('SBD', '')).toFixed(2),
+         payout: pending_payout !== 0 ? pending_payout.toFixed(2) : total_payout.toFixed(2),
          replies: post.children,
          likes: post.active_votes.length,
          created: post.created
